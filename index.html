@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Modelos de Planos de Ensino – CECIA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cecia-red: #8b0000;
+  --blue1: #007cf0;
+  --blue2: #00dfd8;
+  --text: #222;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  background: white;
+  color: var(--text);
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--cecia-red);
+  padding: 18px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+
+.header img { height: 90px; }
+
+.title { text-align: center; }
+
+.course {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--blue1), var(--blue2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cecia {
+  color: white;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.ufsj {
+  font-size: 14px;
+  margin-top: 2px;
+  color: #eee;
+}
+
+/* ===== CONTEÚDO ===== */
+.main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.intro p {
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+/* ===== PASTAS ===== */
+.folder {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.folder-header {
+  padding: 14px 18px;
+  background: #f1f1f1;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--cecia-red);
+}
+
+.folder-header:hover { background: #eaeaea; }
+
+.folder-content {
+  display: none;
+  padding: 12px 20px 18px;
+}
+
+.file { padding: 6px 0; }
+
+.file a {
+  text-decoration: none;
+  color: #0047ab;
+}
+
+.file a:hover { text-decoration: underline; }
+
+/* ===== OPTATIVAS ===== */
+.optativas {
+  border: 2px solid #007cf0;
+  background: #eef6ff;
+}
+
+.optativas .folder-header {
+  background: linear-gradient(90deg, #007cf0, #00dfd8);
+  color: white;
+}
+
+/* ===== PPC ===== */
+.ppc {
+  border: 2px solid #b22222;
+  background: #fff0f0;
+}
+
+.ppc .folder-header {
+  background: linear-gradient(90deg, #b22222, #e57373);
+  color: white;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin: 60px 0 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="https://cecia.ufsj.edu.br/assets/logo-ufsj-D8UfR3Y2.png">
+    <div class="title">
+      <div class="course">Engenharia da Computação e Inteligência Artificial</div>
+      <div class="cecia">CECIA</div>
+      <div class="ufsj">Universidade Federal de São João del-Rei – UFSJ</div>
+    </div>
+    <img src="https://cecia.ufsj.edu.br/assets/mascote-labs-XYBaCOvj.png">
+  </div>
+</div>
+
+<div class="main">
+
+<h2>Modelos Oficiais de Planos de Ensino</h2>
+
+<div class="intro">
+<p>
+Esta página disponibiliza os <strong>modelos oficiais de Planos de Ensino</strong> que deverão ser utilizados pelos docentes do curso de
+<strong>Engenharia da Computação e Inteligência Artificial</strong> no próximo semestre letivo.
+</p>
+
+<p>
+Os modelos já estão <strong>pré-preenchidos</strong>. Cada docente deve localizar sua disciplina na pasta correspondente ao
+<strong>período ou ao grupo de optativas</strong>, fazer o download do arquivo e <strong>completar apenas os campos destacados em vermelho</strong>.
+</p>
+
+<p>
+Os arquivos estão no formato <strong>.docx</strong>. Para garantir a <strong>uniformidade institucional</strong> dos documentos,
+solicitamos que o padrão do modelo não seja alterado.
+</p>
+</div>
+
+<div id="content">Carregando...</div>
+
+</div>
+
+<script>
+const API_KEY = "AIzaSyACMK-L2y2-ZyJkwSkuu992Zug1dPFZgQM";
+const ROOT_FOLDER = "18cQishxgfJzjfj-Em7Q1RJD-GUcOyuNr";
+
+async function api(q) {
+  const r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id,name)&supportsAllDrives=true&includeItemsFromAllDrives=true&key=${API_KEY}`);
+  return (await r.json()).files || [];
+}
+
+async function load() {
+  const c = document.getElementById("content");
+  c.innerHTML = "";
+
+  const folders = await api(`'${ROOT_FOLDER}' in parents and mimeType='application/vnd.google-apps.folder'`);
+
+  let optativas = null;
+  let ppc = null;
+  let others = [];
+
+  folders.forEach(f => {
+    const n = f.name.toLowerCase();
+    if (n.includes("optativa")) optativas = f;
+    else if (n.includes("projeto pedagógico")) ppc = f;
+    else others.push(f);
+  });
+
+  for (const f of others) await render(f,false,false);
+  if (optativas) await render(optativas,true,false);
+  if (ppc) await render(ppc,false,true);
+}
+
+async function render(folder,isOpt,isPPC){
+  const box = document.createElement("div");
+  box.className = "folder" + (isOpt?" optativas":"") + (isPPC?" ppc":"");
+
+  const h = document.createElement("div");
+  h.className="folder-header";
+  h.innerHTML = `${isPPC?"📕":(isOpt?"🧩":"📁")} ${folder.name} <span>▶</span>`;
+
+  const c = document.createElement("div");
+  c.className="folder-content";
+
+  const files = await api(`'${folder.id}' in parents and mimeType!='application/vnd.google-apps.folder'`);
+  files.forEach(f=>{
+    c.innerHTML+=`<div class="file">📄 <a target="_blank" href="https://drive.google.com/file/d/${f.id}/view">${f.name}</a></div>`;
+  });
+
+  h.onclick=()=>{
+    const open=c.style.display==="block";
+    c.style.display=open?"none":"block";
+    h.querySelector("span").textContent=open?"▶":"▼";
+  };
+
+  box.appendChild(h);
+  box.appendChild(c);
+  content.appendChild(box);
+}
+
+load();
+</script>
+
+<div class="footer">
+Repositório institucional de modelos de Planos de Ensino – CECIA / UFSJ.
+</div>
+
+</body>
+</html>
