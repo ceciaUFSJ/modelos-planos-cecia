@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <title>Modelos de Planos de Ensino – CECIA</title>
 
+
+
+
+  
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -106,49 +110,83 @@ body {
    NAVEGAÇÃO DO HEADER
    ========================================================= */
 .header-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* matriz fixa */
+  gap: 5px;
+  margin-top: 1px;
 }
 
 .header-nav a {
-  padding: 6px 12px;
-  font-size: 13px;
+  height: 20px;
+  padding: 0px 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  line-height: 1.2;
+
+  font-size: 0.75rem;        /* ~30% menor que 1rem */
   font-weight: 600;
+
   text-decoration: none;
   color: #ffffff;
-  background: rgba(255,255,255,0.08);
-  border: none;
-  border-radius: 4px;     /* leve, moderno */
-  white-space: nowrap;
-  transition: background 0.2s ease;
-}
+  background-color: #8b1d1d;
 
+  border: none;             /* sem borda */
+  border-radius: 3px;       /* pode remover se quiser totalmente reto */
+
+  box-shadow: none;         /* garante ausência de contorno */
+  outline: none;
+}
 .header-nav a:hover {
-  background: rgba(255,255,255,0.22);
+  background-color: #a82424;
 }
 
 
 
 
 
-/* Mobile */
+
 @media (max-width: 768px) {
+
+  /* ESCONDE AS LOGOS NO MOBILE */
+  .logo-ufsj,
+  .logo-cecia {
+    display: none;
+  }
+
+  /* Ajusta o layout para apenas o título */
   .header-group {
     grid-template-columns: 1fr;
-    row-gap: 12px;
-    text-align: center;
+    row-gap: 8px;
+    margin-bottom: 10px;
   }
 
-  .logo {
-    margin: 0 auto;
+  /* BOTÕES 2x MAIS ALTOS NO MOBILE */
+  .header-nav a {
+    height: 40px;
+    padding: 0 4px;
   }
 
-  .logo-cecia {
-    height: 100px;
+  /* REDUZ A FONTE EM 10% NO MOBILE */
+  body {
+    font-size: 90%;
   }
+
+  /* ESCONDE O TEXTO "UFSJ" NO MOBILE */
+  .ufsj {
+    display: none;
+  }
+  
+   .header-nav a {
+    font-size: 0.56rem;
+  }
+
 }
+
+
 
 /* =========================================================
    CONTEÚDO INSTITUCIONAL
@@ -195,7 +233,7 @@ body {
   margin: 60px 0 30px;
 }
 
-  /* ===== PASTAS DO DRIVE ===== */
+/* ===== PASTAS DO DRIVE ===== */
 .folder {
   margin-bottom: 12px;
   border: 1px solid #ddd;
@@ -217,13 +255,13 @@ body {
 }
 
 .folder-content {
-  display: none;          /* <-- recolhida por padrão */
+  display: none;         
   padding: 10px 18px;
   background: #fff;
 }
 
 .folder.open .folder-content {
-  display: block;         /* <-- abre ao clicar */
+  display: block;        
 }
 
 .file {
@@ -231,7 +269,6 @@ body {
 }
 
 
-  
 </style>
 </head>
 
@@ -265,32 +302,39 @@ body {
 
     </div>
 
-    <nav class="header-nav">
-      <a href="https://cecia.ufsj.edu.br/">Home</a>
-      <a href="https://ceciaufsj.github.io/cecia-logos/">Logos</a>
-      <a href="https://ceciaufsj.github.io/cecia-colegiado/">Colegiado</a>
-      <a href="https://ceciaufsj.github.io/cecia-nde/">NDE</a>
-      <a href="https://ceciaufsj.github.io/cecia-requerimento-eletronico/#">Requerimento Eletrônico</a>
-      <a href="https://ceciaufsj.github.io/cecia-tcc/">TCC</a>
-      <a href="https://ceciaufsj.github.io/cecia-projetopedagogico/">PPC</a>
-      <a href="https://ceciaufsj.github.io/cecia-monitoria/">Monitoria</a>
-      <a href="https://ceciaufsj.github.io/cecia-horarios/">Horários</a>
-      <a href="https://ceciaufsj.github.io/cecia-editais/">Editais</a>
-      <a href="https://ceciaufsj.github.io/cecia-atividades-complementares/">Atividades Complementares</a>
-      <a href="https://ceciaufsj.github.io/cecia-extensao/">Atividades de Extensão</a>
-      <a href="https://ceciaufsj.github.io/cecia-inscricao-periodica/">Inscrição Periódica</a>
-      <a href="https://ceciaufsj.github.io/cecia-servidores/">Servidores do Curso</a>
-      <a href="https://ceciaufsj.github.io/cecia-tabela-equivalencia/">Equivalência de Disciplinas</a>
-      <a href="https://ceciaufsj.github.io/cecia-transferencia/">Transferência de Alunos</a>
-      <a href="https://ceciaufsj.github.io/cecia-estagio/">Estágio Curricular</a>
-    </nav>
+<nav class="header-nav">
+  <a href="https://ceciaufsj.github.io/cecia-atividades-complementares/">Atividades Complementares</a>
+  <a href="https://ceciaufsj.github.io/cecia-extensao/">Atividades de Extensão</a>
+  <a href="https://ceciaufsj.github.io/cecia-colegiado/">Colegiado</a>
+  <a href="https://ceciaufsj.github.io/cecia-editais/">Editais</a>
+  <a href="https://ceciaufsj.github.io/cecia-ementas/">Ementas</a>
+  <a href="https://ceciaufsj.github.io/cecia-tabela-equivalencia/">Equivalência de Disciplinas</a>
+  <a href="https://ceciaufsj.github.io/cecia-estagio/">Estágio Curricular</a>
+  <a href="https://cecia.ufsj.edu.br/">Home</a>
+  <a href="https://ceciaufsj.github.io/cecia-horarios/">Horários</a>
+  <a href="https://ceciaufsj.github.io/cecia-inscricao-periodica/">Inscrição Periódica</a>
+  <a href="https://ceciaufsj.github.io/cecia-logos/">Logos</a>
+  <a href="https://ceciaufsj.github.io/cecia-modelos-planos/">Modelos de Planos de Ensino</a>
+  <a href="https://ceciaufsj.github.io/cecia-monitoria/">Monitoria</a>
+  <a href="https://ceciaufsj.github.io/cecia-nde/">NDE</a>
+  <a href="https://ceciaufsj.github.io/cecia-planos/">Planos de Ensino Aprovados</a>
+  <a href="https://ceciaufsj.github.io/cecia-projetopedagogico/">PPC</a>
+  <a href="https://ceciaufsj.github.io/cecia-requerimento-eletronico/#">Requerimento Eletrônico</a>
+  <a href="https://ceciaufsj.github.io/cecia-servidores/">Servidores do Curso</a>
+  <a href="https://ceciaufsj.github.io/cecia-tcc/">TCC</a>
+  <a href="https://ceciaufsj.github.io/cecia-transferencia/">Transferência de Alunos</a>
+</nav>
+
 
   </div>
 </header>
 
   
-
 <div class="main">
+
+
+
+  
 
   <!-- ===== AVISO ===== -->
 <div style="
