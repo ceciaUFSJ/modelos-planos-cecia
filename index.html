@@ -194,6 +194,44 @@ body {
   color: #666;
   margin: 60px 0 30px;
 }
+
+  /* ===== PASTAS DO DRIVE ===== */
+.folder {
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.folder-header {
+  background: #f7f7f7;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.folder-header:hover {
+  background: #ececec;
+}
+
+.folder-content {
+  display: none;          /* <-- recolhida por padrão */
+  padding: 10px 18px;
+  background: #fff;
+}
+
+.folder.open .folder-content {
+  display: block;         /* <-- abre ao clicar */
+}
+
+.file {
+  margin: 6px 0;
+}
+
+
+  
 </style>
 </head>
 
